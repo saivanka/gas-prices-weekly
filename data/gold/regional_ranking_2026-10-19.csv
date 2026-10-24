@@ -1,0 +1,10 @@
+rank_cheapest_to_most_expensive,region,regular_usd_per_gal,diff_vs_us_regular_usd_per_gal,week_change_usd,year_change_usd,reading_date
+1,Gulf Coast (PADD 3),3.784,-0.500,-0.067,1.228,2026-10-19
+2,Lower Atlantic (1C),3.860,-0.424,-0.069,1.073,2026-10-19
+3,East Coast (PADD 1),4.064,-0.220,-0.054,1.162,2026-10-19
+4,Midwest (PADD 2),4.145,-0.139,0.000,1.340,2026-10-19
+5,New England (1A),4.249,-0.035,-0.042,1.300,2026-10-19
+6,Central Atlantic (1B),4.312,0.028,-0.035,1.248,2026-10-19
+7,Rocky Mountain (PADD 4),4.468,0.184,0.029,1.471,2026-10-19
+8,West Coast less California,5.007,0.723,-0.064,1.129,2026-10-19
+9,West Coast (PADD 5),5.557,1.273,-0.082,1.391,2026-10-19
