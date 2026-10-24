@@ -24,7 +24,7 @@ repo contains a Kaggle key, and no key should ever be committed.
 2. In this GitHub repo: Settings → Secrets and variables → Actions →
    New repository secret. Add exactly:
    - `KAGGLE_USERNAME` — the `username` value from `kaggle.json`
-   - `KAGGLE_KEY` — the `key` value from `kaggle.json`
+   - `KAGGLE_KEY` — the `key` value from `kaggle.json`, **or** a new-style Kaggle API token (the workflow maps this secret to `KAGGLE_API_TOKEN`, which is how the current Kaggle CLI authenticates new-style tokens) — this repo uses a new-style token created 2026-10-24, named `gas-prices-weekly-github-actions`
 3. Delete the downloaded `kaggle.json` or keep it outside the repo.
 
 ## Step 3 — Dataset slug (already set)
@@ -70,5 +70,6 @@ No change is needed unless the Kaggle username ever changes.
 |---|---|
 | `Kaggle credentials not found` | Secrets missing or named differently — they must be exactly `KAGGLE_USERNAME` / `KAGGLE_KEY`. |
 | `403 Forbidden` from Kaggle API | Token revoked or account not verified on Kaggle — create a new token in Step 2. |
+| `Authentication required to call the Kaggle API` in the publish step | The secret holds a new-style Kaggle API token, which the current CLI only accepts as `KAGGLE_API_TOKEN`. The workflow already maps the `KAGGLE_KEY` secret to `KAGGLE_API_TOKEN` — check that mapping is present in `.github/workflows/publish-to-kaggle.yml`. |
 | Validation fails in Actions | The CSV broke a rule in `docs/METHODOLOGY.md` — fix the file, never weaken the validator to publish. |
 | Dataset created but empty | The staging step found no CSVs — check files are under `data/incoming/` and end in `.csv`. |
