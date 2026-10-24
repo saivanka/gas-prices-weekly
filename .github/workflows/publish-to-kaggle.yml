@@ -51,4 +51,8 @@ jobs:
         env:
           KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
           KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+          # New-style Kaggle API tokens authenticate only via
+          # KAGGLE_API_TOKEN in the current Kaggle CLI. The token is
+          # stored in the KAGGLE_KEY secret, so map it here as well.
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_KEY }}
         run: python3 scripts/publish_to_kaggle.py
