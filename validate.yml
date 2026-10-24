@@ -1,0 +1,28 @@
+name: Validate weekly CSVs
+
+on:
+  pull_request:
+    paths:
+      - "data/**"
+      - "scripts/validate_csv.py"
+      - ".github/workflows/validate.yml"
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "scripts/validate_csv.py"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate every weekly CSV
+        run: python3 scripts/validate_csv.py data/incoming/*.csv

@@ -1,0 +1,15 @@
+# Kaggle credentials — never commit these
+kaggle.json
+.kaggle/
+
+# Staging folder built by scripts/publish_to_kaggle.py
+kaggle_upload/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS / editor
+.DS_Store
+*.swp

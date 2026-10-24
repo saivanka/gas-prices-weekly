@@ -1,0 +1,20 @@
+{
+    "description": "Traceable US retail gasoline and diesel prices collected weekly from official and public sources only.\n\nSources: (1) U.S. Energy Information Administration (EIA) Gasoline and Diesel Fuel Update - weekly national and regional (PADD) prices, primary source. (2) AAA Gas Prices - daily national average and state averages, cross-check only.\n\nRules: numbers are copied exactly as published (EIA 3 decimals, AAA 4 decimals); reading_date is the date the source gives, not the collection date; a value the source does not publish is left blank with an explanation in notes - nothing is estimated, interpolated, or filled from the other source. Each row records the exact source_url it was read from and a captured_at_utc timestamp.\n\nColumns: reading_date, source, area, area_type, fuel_type, price_usd_per_gal, change_vs_prior_week_usd, change_vs_year_ago_usd, source_url, captured_at_utc, notes. Change columns are EIA only.\n\nAttribution: EIA data is U.S. government public domain. AAA averages are republished with attribution to AAA Gas Prices for research purposes; check AAA terms before commercial reuse.",
+    "id": "saivanka/us-retail-gasoline-and-diesel-prices-weekly",
+    "keywords": [
+        "gasoline prices",
+        "diesel prices",
+        "eia",
+        "aaa",
+        "united states",
+        "energy",
+        "weekly"
+    ],
+    "licenses": [
+        {
+            "name": "unknown"
+        }
+    ],
+    "subtitle": "Weekly EIA national and PADD regional prices, cross-checked against AAA daily national and state averages. No estimated values.",
+    "title": "US Retail Gasoline and Diesel Prices - Weekly"
+}

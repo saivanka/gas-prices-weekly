@@ -1,0 +1,54 @@
+name: Publish to Kaggle
+
+# Publishes the validated weekly CSVs to Kaggle.
+# One-time setup (Kaggle API token -> GitHub secrets, dataset slug):
+# see docs/KAGGLE_SETUP.md. Without the secrets this workflow fails
+# at the credentials check and publishes nothing.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "kaggle/dataset-metadata.json"
+      - "scripts/publish_to_kaggle.py"
+      - ".github/workflows/publish-to-kaggle.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate every weekly CSV before publishing
+        run: python3 scripts/validate_csv.py data/incoming/*.csv
+
+      - name: Check Kaggle credentials are configured
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+        run: |
+          if [ -z "$KAGGLE_USERNAME" ] || [ -z "$KAGGLE_KEY" ]; then
+            echo "::error::KAGGLE_USERNAME / KAGGLE_KEY secrets are not set. See docs/KAGGLE_SETUP.md"
+            exit 1
+          fi
+          echo "Kaggle credentials present for user: $KAGGLE_USERNAME"
+
+      - name: Install Kaggle CLI
+        run: pip install --upgrade kaggle
+
+      - name: Publish dataset (create on first run, new version after)
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+        run: python3 scripts/publish_to_kaggle.py
