@@ -73,6 +73,24 @@ One unique row per combination of `reading_date, source, area, fuel_type`.
 Full definitions: [docs/DATA_DICTIONARY.md](docs/DATA_DICTIONARY.md)
 Method and rules: [docs/METHODOLOGY.md](docs/METHODOLOGY.md)
 
+## Bronze, Silver, Gold
+
+Use the layer that fits your job — full definitions in
+[docs/MEDALLION.md](docs/MEDALLION.md):
+
+| Layer | Files | Use it for |
+|---|---|---|
+| **Bronze** | `data/bronze/YYYY-MM-DD.csv` | Audit — byte-identical raw file, exactly as published |
+| **Silver** | `data/silver/YYYY-MM-DD.csv` | Analysis — same 22 rows, validated and sorted deterministically |
+| **Gold** | `data/gold/national_summary_YYYY-MM-DD.csv`, `regional_ranking_YYYY-MM-DD.csv`, `state_snapshot_YYYY-MM-DD.csv` | Reading — curated tables: national comparison, regions cheapest→priciest, states in the file cheapest→priciest |
+
+On Kaggle the same files appear with layer prefixes
+(`bronze_…`, `silver_…`, `gold_…`), plus the original weekly file kept
+under its original name (identical to bronze, so its earlier Data Card
+descriptions survive). Gold contains only exact differences and ranks
+on silver — no modelling, forecasting or seasonal adjustment. Build all
+layers with `python3 scripts/build_layers.py`.
+
 ## Known differences — latest week
 
 - EIA (2026-10-19) vs AAA (2026-10-23), national regular gasoline:
@@ -116,15 +134,23 @@ The same check runs in CI on every pull request:
 ├── README.md
 ├── CONTRIBUTING.md
 ├── data/
-│   └── incoming/
-│       └── 2026-10-19.csv
+│   ├── incoming/2026-10-19.csv
+│   ├── bronze/2026-10-19.csv
+│   ├── silver/2026-10-19.csv
+│   └── gold/
+│       ├── national_summary_2026-10-19.csv
+│       ├── regional_ranking_2026-10-19.csv
+│       └── state_snapshot_2026-10-19.csv
 ├── docs/
 │   ├── DATA_DICTIONARY.md
 │   ├── KAGGLE_SETUP.md
+│   ├── MEDALLION.md
 │   └── METHODOLOGY.md
 ├── kaggle/
-│   └── dataset-metadata.json
+│   ├── dataset-metadata.json
+│   └── kaggle-cover.png
 ├── scripts/
+│   ├── build_layers.py
 │   ├── publish_to_kaggle.py
 │   └── validate_csv.py
 └── .github/
