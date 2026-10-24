@@ -143,6 +143,17 @@ The same check runs in CI on every pull request:
 - The Kaggle metadata therefore uses licence `unknown` rather than
   claiming a single licence over both sources. See the Kaggle setup doc.
 
+## Author
+
+**Sai Satya Pavan Pandu Vanka** — data engineer based in Dallas, TX.
+M.S. in Computer Information & Science, University of North Texas;
+AWS Certified Data Engineer – Associate (2025).
+
+- GitHub: https://github.com/saivanka
+- Hugging Face: https://huggingface.co/saisatyapavanpanduvanka
+- LinkedIn: https://www.linkedin.com/in/ssvanka/
+- Kaggle: https://www.kaggle.com/saivanka
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). The short version: one weekly CSV
